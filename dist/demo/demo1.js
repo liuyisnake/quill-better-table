@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "6f1a49acd4e51d2cad2d";
+/******/ 	var hotCurrentHash = "20477af40e727a6d4b7f";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -2703,7 +2703,7 @@ function matchTableHeader(node, delta, scroll) {
       newDelta.insert(op.insert, Object.assign({}, _omit(op.attributes, ['table', 'table-cell-line'])));
     }
     return newDelta;
-  }, new Delta());
+  }, new Delta().insert('\n') /* add a line before the table for the editor could not edit after remove the first table */);
 }
 
 // supplement colgroup and col
@@ -3068,7 +3068,7 @@ __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
     if(true) {
-      // 1675137151357
+      // 1675146593780
       var cssReload = __webpack_require__(12)(module.i, {"locals":false});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
