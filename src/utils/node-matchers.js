@@ -165,6 +165,7 @@ export function matchTableHeader (node, delta, scroll) {
 // supplement colgroup and col
 export function matchTable (node, delta, scroll) {
   let newColDelta = new Delta()
+  let newlineDelta = new Delta().insert('\n');
   const topRow = node.querySelector('tr')
 
   // bugfix: empty table will return empty delta
@@ -183,13 +184,17 @@ export function matchTable (node, delta, scroll) {
   // bugfix: the table copied from Excel had some default col tags missing
   //         add missing col tags
   if (colsNumber === maxCellsNumber) {
-    return delta
+    // add a line before the table
+    return newlineDelta.concat(delta);
   } else {
     for (let i = 0; i < maxCellsNumber - colsNumber; i++) {
       newColDelta.insert('\n', { 'table-col': true })
     }
     
-    if (colsNumber === 0) return newColDelta.concat(delta)
+    if (colsNumber === 0){
+      //add a line before the table
+      return newlineDelta.concat( newColDelta.concat(delta));
+    }
 
     let lastNumber = 0
     return delta.reduce((finalDelta, op) => {
@@ -203,6 +208,6 @@ export function matchTable (node, delta, scroll) {
       }
   
       return finalDelta
-    },  (new Delta()).insert('\n') /* add a line before the table for the editor could not edit after remove the first table */)
+    }, newlineDelta.concat(delta)/* add a line before the table for the editor could not edit after remove the first table */)
   }
 }
