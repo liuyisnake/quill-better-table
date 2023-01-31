@@ -159,7 +159,7 @@ export function matchTableHeader (node, delta, scroll) {
     }
 
     return newDelta
-  }, (new Delta()).insert('\n') /* add a line before the table for the editor could not edit after remove the first table */)
+  },new Delta())
 }
 
 // supplement colgroup and col
@@ -203,6 +203,6 @@ export function matchTable (node, delta, scroll) {
       }
   
       return finalDelta
-    }, new Delta())
+    },  (new Delta()).insert('\n') /* add a line before the table for the editor could not edit after remove the first table */)
   }
 }
